@@ -144,3 +144,13 @@ LOGIN_URL = '/users/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# send_mail(
+#     'Subject',
+#     'Message',
+#     'from@ex.com',
+#     ['to@ex.com'],)

@@ -47,10 +47,11 @@ class Basket(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     created_timestamp = models.DateTimeField(auto_now_add=True)
 
+    objects = BasketQuerySet.as_manager()
+
     def __str__(self):
         return f'Basket{self.user} | {self.product} | {self.quantity}'
 
     def sum(self):
         return self.product.price * self.quantity
 
-    objects = BasketQuerySet.as_manager()

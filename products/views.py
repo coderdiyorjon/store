@@ -41,7 +41,12 @@ class ProductListView(ListView):
 #     context = {'title': 'Store - Каталог','products':(Paginator(products, per_page)).page(page_number), 'categories': ProductCategory.objects.all(), }
 #     return render(request, 'products/products.html', context)
 
+class BasketCreateView(CreateView):
+    model=Basket
 
+    def post(self, request, *args, **kwargs):
+        product=Product.objects.get(id=self.kwargs.get('product_id'))
+        baskets=Basket.objects.filter(product=product,user=request.user )
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)

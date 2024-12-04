@@ -1,4 +1,6 @@
-# from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
+
+from django.views.generic.base import TemplateView
 
 from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 
@@ -22,17 +24,19 @@ from django.contrib.auth.views import LoginView
 
 from django.contrib.messages.views import SuccessMessageMixin
 
-from users.models import User
+from users.models import User, EmailVerification
 
 from common.views import TitleMixin
 
+
 # Create your views here.
 
-class UserLoginView(TitleMixin ,LoginView):
-    template_name="users/login.html"
+class UserLoginView(TitleMixin, LoginView):
+    template_name = "users/login.html"
     form_class = UserLoginForm
     success_url = reverse_lazy('index')
     title = "Store - Login"
+
 
 # def login(request):
 #     if request.method == 'POST':
@@ -53,13 +57,14 @@ class UserLoginView(TitleMixin ,LoginView):
 #     }
 #     return render(request, 'users/login.html', context)
 
-class UserRegistrationView(TitleMixin ,SuccessMessageMixin, CreateView):
-    model=User
+class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
+    model = User
     form_class = UserRegisterForm
-    template_name="users/register.html"
-    success_url=reverse_lazy("users:login")
-    success_message="Account successfully created."
+    template_name = "users/register.html"
+    success_url = reverse_lazy("users:login")
+    success_message = "Account successfully created."
     title = "Store - Registration"
+
 
 # def register(request):
 #     if request.method == 'POST':
@@ -75,9 +80,9 @@ class UserRegistrationView(TitleMixin ,SuccessMessageMixin, CreateView):
 #     context = {'form': form}
 #     return render(request, 'users/register.html', context)
 
-class UserProfileView(TitleMixin ,UpdateView):
-    model=User
-    form_class=UserProfileForm
+class UserProfileView(TitleMixin, UpdateView):
+    model = User
+    form_class = UserProfileForm
     template_name = "users/profile.html"
     title = "Store - Profile"
 
@@ -85,9 +90,10 @@ class UserProfileView(TitleMixin ,UpdateView):
         return reverse_lazy("users:profile", args=(self.object.id,))
 
     def get_context_data(self, **kwargs):
-        context=super(UserProfileView, self).get_context_data()
-        context['baskets']=Basket.objects.filter(user=self.object)
+        context = super(UserProfileView, self).get_context_data()
+        context['baskets'] = Basket.objects.filter(user=self.object)
         return context
+
 
 # @login_required
 # def profile(request):
@@ -112,3 +118,18 @@ class UserProfileView(TitleMixin ,UpdateView):
 # def logout(request):
 #     auth.logout(request)
 #     return HttpResponseRedirect(reverse('index'))
+
+class EmailVerificationView(TitleMixin, TemplateView):
+    title = "Store - Email Verification"
+    template_name = "users/email_verification.html"
+
+    def get(self, request, *args, **kwargs):
+        code = kwargs['code']
+        user = User.objects.get(email=kwargs['email'])
+        email_verifications = EmailVerification.objects.filter(user=user, code=code)
+        if email_verifications.exists() and not email_verifications.first():
+            user.is_verified_email = True
+            user.save()
+            return super(EmailVerificationView, self).get(request, *args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse('index'))

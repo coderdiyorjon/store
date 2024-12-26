@@ -6,6 +6,8 @@ from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 
+import store.settings
+
 
 # Create your models here.
 
@@ -27,8 +29,11 @@ class EmailVerification(models.Model):
         link = reverse('users:email_verification', kwargs={'email': self.user.email, 'code': self.code})
         verification_link = f'{settings.DOMAIN_NAME}{link}'
         subject = f'Verification Email for user {self.user.username}'
-        message = 'To Verificate your account {} click to url: {}'.format(self.user.username, verification_link)
-        send_mail(subject=subject, message=message, from_email='noreply@example.com',  # from_email
+        message = 'To Verificate your account {} click to url: {}'.format(self.user.email, verification_link)
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email='from@example.com',  # from_email
             recipient_list=[self.user.email],  # recipient_list
             fail_silently=False, )
 

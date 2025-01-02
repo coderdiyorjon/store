@@ -2,7 +2,6 @@ from django.db import models
 
 from users.models import User
 
-
 # Create your models here.
 
 class ProductCategory(models.Model):
@@ -13,8 +12,8 @@ class ProductCategory(models.Model):
         return self.name
 
     class Meta:
-        verbose_name='Category'
-        verbose_name_plural='Categories'
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Product(models.Model):
@@ -29,8 +28,8 @@ class Product(models.Model):
         return f'Product{self.name} | Category{self.category}'
 
     class Meta:
-        verbose_name='Product'
-        verbose_name_plural='Products'
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
 
 
 class BasketQuerySet(models.QuerySet):
@@ -54,4 +53,3 @@ class Basket(models.Model):
 
     def sum(self):
         return self.product.price * self.quantity
-

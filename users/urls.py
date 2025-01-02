@@ -1,14 +1,13 @@
 from django.urls import path
-from users.views import UserLoginView, UserRegistrationView, UserProfileView, EmailVerificationView
-from django.contrib.auth.views import LogoutView
-from django.contrib.auth.decorators import login_required
 
-app_name = 'users'
+from products.views import ProductListView, basket_add, basket_remove
 
-urlpatterns = [path('login/', UserLoginView.as_view(), name='login'),
-    path('register/', UserRegistrationView.as_view(), name='register'),
-    path('profile/<int:pk>/', login_required(UserProfileView.as_view()), name='profile'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('verify/<str:email>/<uuid:code>/', EmailVerificationView.as_view(), name='email_verification'),
+app_name = 'products'
 
+urlpatterns = [
+    path('', ProductListView.as_view(), name='index'),
+    path('category/<int:category_id>/', ProductListView.as_view(), name='category'),
+    path('page/<int:page>/', ProductListView.as_view(), name='paginator'),
+    path('baskets/add/<int:product_id>/', basket_add, name='basket_add'),
+    path('baskets/remove/<int:basket_id>/', basket_remove, name='basket_remove'),
 ]

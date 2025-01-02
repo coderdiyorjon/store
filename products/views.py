@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic.base import TemplateView
-from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+
 from common.views import TitleMixin
-
-from products.models import ProductCategory, Product, Basket
-
+from products.models import Basket, Product, ProductCategory
 
 # Create your views here.
 
@@ -14,7 +13,7 @@ class IndexView(TemplateView):
     template_name = 'products/index.html'
 
 
-class ProductListView(TitleMixin ,ListView):
+class ProductListView(TitleMixin, ListView):
     model = Product
     template_name = 'products/products.html'
     paginate_by = 3
@@ -40,15 +39,19 @@ class ProductListView(TitleMixin ,ListView):
 # def products(request, category_id=None, page_number=1):
 #     products = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
 #     per_page=3
-#     context = {'title': 'Store - Каталог','products':(Paginator(products, per_page)).page(page_number), 'categories': ProductCategory.objects.all(), }
+#     context = {'title': 'Store - Каталог',
+#     'products':(Paginator(products, per_page)).page(page_number),
+#     'categories': ProductCategory.objects.all(), }
 #     return render(request, 'products/products.html', context)
 
 class BasketCreateView(CreateView):
-    model=Basket
+    model = Basket
 
     def post(self, request, *args, **kwargs):
-        product=Product.objects.get(id=self.kwargs.get('product_id'))
-        baskets=Basket.objects.filter(product=product,user=request.user )
+        product = Product.objects.get(id=self.kwargs.get('product_id'))
+        baskets = Basket.objects.filter(product=product, user=request.user)
+
+
 @login_required
 def basket_add(request, product_id):
     product = Product.objects.get(id=product_id)

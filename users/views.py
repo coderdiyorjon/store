@@ -15,13 +15,6 @@ from users.models import EmailVerification, User
 
 # from django.contrib import auth
 
-
-
-
-
-
-
-
 # Create your views here.
 
 class UserLoginView(TitleMixin, LoginView):

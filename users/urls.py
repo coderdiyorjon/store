@@ -4,7 +4,7 @@ from products.views import ProductListView, basket_add, basket_remove
 from users.views import UserProfileView, UserLoginView, UserRegistrationView
 from django.contrib.auth.views import LogoutView
 
-app_name = 'products'
+app_name = 'users'
 
 urlpatterns = [
     path('', ProductListView.as_view(), name='index'),

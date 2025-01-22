@@ -85,23 +85,23 @@ WSGI_APPLICATION = 'store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# DATABASE = {
+# DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'store_db',
-#         'USER': 'store_username',
-#         'PASSWORD': 'store_password',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'store_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -175,7 +175,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'raxmonqulovdiyorjon0624@gmail.com'
-EMAIL_HOST_PASSWORD = 'zvptylwphdypydtj'
+EMAIL_HOST_PASSWORD = 'jzpw jowm kdno gshw'
 '''
 
 # OAuth

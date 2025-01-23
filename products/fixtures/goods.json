@@ -1,0 +1,74 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Black hoodie with adidas Originals monograms",
+      "description": "Soft fabric for sweatshirts. Style and comfort are a way of life.",
+      "quantity": 15,
+      "price": "6090.00",
+      "image": "products_images/Adidas-hoodie.png",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "The blue jacket of The North Face",
+      "description": "Smooth fabric. Waterproof coating. Lightweight and warm downy filler.",
+      "quantity": 55,
+      "price": "2372.00",
+      "image": "products_images/Blue-jacket-The-North-Face.png",
+      "category": 5
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Brown sports oversized-top ASOS DESIGN",
+      "description": "The material has a plush texture. Comfortable and soft.",
+      "quantity": 75,
+      "price": "3390.00",
+      "image": "products_images/Brown-sports-oversized-top-ASOS-DESIGN.png",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Black Nike Heritage Backpack",
+      "description": "Thick fabric. Lightweight material.",
+      "quantity": 43,
+      "price": "2340.00",
+      "image": "products_images/Black-Nike-Heritage-backpack.png",
+      "category": 6
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Black Platform Shoes with 3 pairs of grommets Dr Martens 1461 Bex",
+      "description": "Smooth leather upper. Natural material.",
+      "quantity": 27,
+      "price": "1359.00",
+      "image": "products_images/Black-Dr-Martens-shoes.png",
+      "category": 7
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Dark blue wide-leg ASOS DESIGN trousers",
+      "description": "Lightweight elastic sirsaker fabric is a textured fabric.",
+      "quantity": 17,
+      "price": "2890.00",
+      "image": "products_images/Dark-blue-wide-leg-ASOs-DESIGN-trousers.png",
+      "category": 8
+    }
+  }
+]

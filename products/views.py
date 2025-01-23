@@ -26,10 +26,9 @@ class ProductListView(TitleMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductListView, self).get_context_data(**kwargs)
-        context['title'] = ''
+        context['title'] = self.title  # Set the title from the class attribute
         context['categories'] = ProductCategory.objects.all()
         return context
-
 
 # def index(request):
 #     context = {'is_promotion': True, 'title': 'Store', }

@@ -9,6 +9,7 @@ from products.models import Basket, Product, ProductCategory
 
 # Create your views here.
 
+
 class IndexView(TemplateView):
     template_name = 'products/index.html'
 

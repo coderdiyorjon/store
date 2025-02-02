@@ -1,8 +1,8 @@
+from django.contrib.auth.views import LogoutView
 from django.urls import path
 
 from products.views import ProductListView, basket_add, basket_remove
-from users.views import UserProfileView, UserLoginView, UserRegistrationView
-from django.contrib.auth.views import LogoutView
+from users.views import UserLoginView, UserProfileView, UserRegistrationView
 
 app_name = 'users'
 

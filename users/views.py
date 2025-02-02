@@ -17,12 +17,12 @@ from users.models import EmailVerification, User
 
 # Create your views here.
 
+
 class UserLoginView(TitleMixin, LoginView):
     template_name = "users/login.html"
     form_class = UserLoginForm
     success_url = reverse_lazy('index')
     title = "Store - Login"
-
 
 # def login(request):
 #     if request.method == 'POST':
@@ -42,6 +42,7 @@ class UserLoginView(TitleMixin, LoginView):
 #         'form': form,
 #     }
 #     return render(request, 'users/login.html', context)
+
 
 class UserRegistrationView(TitleMixin, SuccessMessageMixin, CreateView):
     model = User

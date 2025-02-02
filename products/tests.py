@@ -1,19 +1,23 @@
 from http import HTTPStatus
+
 from django.test import TestCase
 from django.urls import reverse
-from unicodedata import category
 
 from products.models import Product, ProductCategory
+
 # Create your tests here.
+
 
 class IndexViewTestCase(TestCase):
     def test_view(self):
+
         path = reverse('index')
         response = self.client.get(path)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(response.context['title'], 'Store')
         self.assertTemplateUsed(response, 'products/index.html')
+
 
 class ProductListViewTestCase(TestCase):
 
@@ -23,6 +27,7 @@ class ProductListViewTestCase(TestCase):
     fixtures = ['categories.json', 'goods.json']
 
     def test_list(self):
+
         path = reverse('products:index')
         response = self.client.get(path)
 

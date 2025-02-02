@@ -166,21 +166,21 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Email
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-'''
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST_USER = 'raxmonqulovdiyorjon0624@gmail.com'
-EMAIL_HOST_PASSWORD = 'jzpw jowm kdno gshw'
-'''
+EMAIL_HOST_PASSWORD = 'jzpwjowmkdnogshw'
+
 
 # OAuth
 
-AUTHENTICATION_BACKENDS=[
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]

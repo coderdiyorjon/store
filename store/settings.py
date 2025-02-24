@@ -83,6 +83,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'store.wsgi.application'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTION': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 INTERNAL_IPS = [
     '127.0.0.1',
     'localhost'
@@ -176,13 +186,13 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
+EMAIL_HOST_USER = 'raxmonqulovdiyorjon0624@gmail.com'
+EMAIL_HOST_PASSWORD = 'yrzvullmzijjjrua'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'raxmonqulovdiyorjon0624@gmail.com'
-EMAIL_HOST_PASSWORD = 'jzpwjowmkdnogshw'
 
 
 # OAuth
@@ -201,3 +211,8 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# Celery
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'

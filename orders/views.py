@@ -1,7 +1,10 @@
 from django.views.generic import CreateView
-from django.views.generic.base import TemplateView
+
+from orders.forms import OrderForm
 
 # Create your views here.
 
-class OrderCreateView(TemplateView):
+
+class OrderCreateView(CreateView):
     template_name = 'orders/order-create.html'
+    form_class = OrderForm

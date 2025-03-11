@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'products',
     'orders',
     'users',
+    'django.contrib.humanize',
 
 ]
 

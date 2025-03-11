@@ -1,5 +1,7 @@
 {% extends 'products/base.html' %}
 
+{% load humanize %}
+
 {% load static cache %}
 
 {% block css %}
@@ -71,7 +73,7 @@
                                     <h4 class="card-title">
                                         <a href="#">{{ product.name }}</a>
                                     </h4>
-                                    <h5>{{ product.price }},00 руб.</h5>
+                                    <h5>{{ product.price | intcomma}},00 руб.</h5>
                                     <p class="card-text">{{ product.description }}</p>
                                 </div>
                                 <div class="card-footer text-center">

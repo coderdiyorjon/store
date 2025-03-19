@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -31,75 +30,32 @@ DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django_dump_load_utf8',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
-    'debug_toolbar',
-    'products',
-    'orders',
-    'users',
-    'django.contrib.humanize',
+INSTALLED_APPS = ['django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
+    'django.contrib.sessions', 'django.contrib.messages', 'django_dump_load_utf8', 'django.contrib.staticfiles',
+    'django.contrib.sites', 'allauth', 'allauth.account', 'allauth.socialaccount',
+    'allauth.socialaccount.providers.github', 'debug_toolbar', 'products', 'orders', 'users', 'django.contrib.humanize',
 
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-]
+MIDDLEWARE = ['django.middleware.security.SecurityMiddleware', 'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware', 'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware', 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware', 'allauth.account.middleware.AccountMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware', ]
 
 ROOT_URLCONF = 'store.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'products.context_processors.baskets',
-            ],
-        },
-    },
-]
+TEMPLATES = [{'BACKEND': 'django.template.backends.django.DjangoTemplates', 'DIRS': [], 'APP_DIRS': True, 'OPTIONS': {
+    'context_processors': ['django.template.context_processors.debug', 'django.template.context_processors.request',
+        'django.contrib.auth.context_processors.auth', 'django.contrib.messages.context_processors.messages',
+        'products.context_processors.baskets', ], }, }, ]
 
 WSGI_APPLICATION = 'store.wsgi.application'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTION': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
+CACHES = {'default': {'BACKEND': 'django_redis.cache.RedisCache', 'LOCATION': 'redis://127.0.0.1:6379/1',
+    'OPTION': {'CLIENT_CLASS': 'django_redis.client.DefaultClient', }}}
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-    'localhost'
-]
-
+INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -111,35 +67,16 @@ INTERNAL_IPS = [
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'store_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql_psycopg2', 'NAME': 'store_db', 'USER': 'postgres',
+    'PASSWORD': 'postgres', 'HOST': 'localhost', 'PORT': '5432', }}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
+AUTH_PASSWORD_VALIDATORS = [{'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', }, ]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -154,15 +91,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static', ]
 
 MEDIA_URL = '/media/'
 
@@ -196,23 +130,14 @@ EMAIL_HOST_PASSWORD = 'yrzvullmzijjjrua'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-
 # OAuth
 
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend', ]
 
 SITE_ID = 1
 
-SOCIALACCOUNT_PROVIDERS = {
-    'github': {
-        'SCOPE': [
-            'user',
-        ],
-    }
-}
+SOCIALACCOUNT_PROVIDERS = {'github': {'SCOPE': ['user', ], }}
 
 # Celery
 
@@ -220,6 +145,8 @@ CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
 # Stripe
+# > Done! The Stripe CLI is configured for Default sandbox with account id acct_1R1PBnFKzT3pYxfL
 
 STRIPE_PUBLIC_KEY = 'pk_test_51R1PBnFKzT3pYxfLpDu8tETfPsJw2MsI7apUao9GPl91FQYhiRtA3IwrYU5HVLE2Yc0w3fRHWElAjk9Kt44d0b2H00CpkJ0rQ9'
 STRIPE_SECRET_KEY = 'sk_test_51R1PBnFKzT3pYxfLjZ44BNrddzvYLCnynkHDQTVb5Z5VDMg2SOguvl2Oe3vmo88oK9k6PMXJG0N1E7P7gbEJABQz00hCByKPRn'
+STRIPE_WEBHOOK_SECRET = 'whsec_ddd09c086b007131675e1b7d87f5d162330d3d1715d2c6869e39e50b31680f08'

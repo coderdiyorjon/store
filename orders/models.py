@@ -33,11 +33,11 @@ class Order(models.Model):
     def update_after_payment(self):
         baskets = Basket.objects.filter(user=self.initiator)
         if baskets.exists():  # Basket mavjudligini tekshiramiz
-            self.STATUSES = self.PAID  # self.status emas, self.statuses bo'lishi kerak
+            self.statuses = self.PAID  # O'zgaruvchini to‘g‘ri yangilash
             self.basket_history = {
                 'purchased_items': [basket.de_json() for basket in baskets],
                 'total_sum': float(baskets.total_sum())
             }
-            baskets.delete()  # Ma'lumotlar saqlanganidan keyin Basketlar o'chiriladi
-            self.save()
+            self.save()  # Avval saqlash kerak
+            baskets.delete()
 

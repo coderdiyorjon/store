@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from common.views import TitleMixin
 from orders.forms import OrderForm
+from orders.models import Order
 from products.models import Basket
 
 # Create your views here.
@@ -58,7 +59,7 @@ def stripe_webhook_exempt(request):
         )
     except ValueError as e:
         # Invalid payload
-        return HttpResponse(status=404)
+        return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
         # Invalid signature
         return HttpResponse(status=400)
@@ -74,6 +75,6 @@ def stripe_webhook_exempt(request):
     return HttpResponse(status=200)
 
 def fulfill_order(session):
-    # TODO: fill me in
-    order_id = int(session.metadata.order_id)
-    print('fulfilling_order')
+    order_id = int(session['metadata']['order_id'])
+    order = Order.objects.get(id=order_id)
+    order.update_after_payment()

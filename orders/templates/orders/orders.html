@@ -25,7 +25,7 @@
                             <td>{{ order.created | naturalday }}</td>
                             <td>{{ order.basket_history.total_sum | intcomma }}</td>
                             <td>
-                                <a href="order.html">See</a>
+                                <a href="{% url 'orders:order' order.id %}">See</a>
                             </td>
                         </tr>
                     {% endfor %}

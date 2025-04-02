@@ -1,9 +1,8 @@
 import stripe
-
+from django.conf import settings
 from django.db import models
 
 from users.models import User
-from django.conf import settings
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -48,7 +47,10 @@ class Product(models.Model):
     def create_stripe_product_price(self):
         stripe_product = stripe.Product.create(name=self.name)
         stripe_product_price = stripe.Price.create(
-            product = stripe_product['id'], unit_amount = round(self.price * 100), currency = 'rub')
+            product=stripe_product['id'],
+            unit_amount=round(self.price * 100),
+            currency='rub'
+        )
         return stripe_product_price
 
 

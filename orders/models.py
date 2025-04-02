@@ -1,7 +1,7 @@
 from django.db import models
 
-from users.models import User
 from products.models import Basket
+from users.models import User
 
 # Create your models here.
 
@@ -40,4 +40,3 @@ class Order(models.Model):
             }
             self.save()  # Avval saqlash kerak
             baskets.delete()
-

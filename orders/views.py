@@ -1,14 +1,13 @@
-import stripe
 from http import HTTPStatus
-from django.conf import settings
-from django.http import HttpResponseRedirect, HttpResponse
 
+import stripe
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import CreateView, ListView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic import ListView
-from django.views.decorators.csrf import csrf_exempt
 
 from common.views import TitleMixin
 from orders.forms import OrderForm
@@ -19,12 +18,15 @@ from products.models import Basket
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 class SuccessTemplateView(TitleMixin, TemplateView):
     template_name = 'orders/success.html'
     title = 'Order Success'
 
+
 class CanceledTemplateView(TemplateView):
     template_name = 'orders/canceled.html'
+
 
 class OrderListView(TitleMixin, ListView):
     template_name = 'orders/orders.html'
@@ -36,12 +38,15 @@ class OrderListView(TitleMixin, ListView):
         queryset = super(OrderListView, self).get_queryset()
         return queryset.filter(initiator=self.request.user)
 
+
 class OrderDetailView(DetailView):
     template_name = 'orders/order.html'
     model = Order
+
     def get_context_data(self, **kwargs):
         context = super(OrderDetailView, self).get_context_data(**kwargs)
         context['title'] = f'Store - Order #{self.object.id}'
+
 
 class OrderCreateView(TitleMixin, CreateView):
     template_name = 'orders/order-create.html'
@@ -54,17 +59,19 @@ class OrderCreateView(TitleMixin, CreateView):
         baskets = Basket.objects.filter(user=self.request.user)
 
         checkout_session = stripe.checkout.Session.create(
-            line_items = baskets.stripe_products(),
-            metadata = {'order_id': self.object.id},
-            mode = 'payment',
-            success_url = '{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_success')),
-            cancel_url = '{}{}'.format(settings.DOMAIN_NAME ,reverse('orders:order_canceled')),
+            line_items=baskets.stripe_products(),
+            metadata={'order_id': self.object.id},
+            mode='payment',
+            success_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_success')),
+            cancel_url='{}{}'.format(settings.DOMAIN_NAME, reverse('orders:order_canceled')),
         )
+
         return HttpResponseRedirect(checkout_session.url, status=HTTPStatus.SEE_OTHER)
 
     def form_valid(self, form):
         form.instance.initiator = self.request.user
         return super(OrderCreateView, self).form_valid(form)
+
 
 @csrf_exempt
 def stripe_webhook_exempt(request):
@@ -92,6 +99,7 @@ def stripe_webhook_exempt(request):
 
     # Passed signature verification
     return HttpResponse(status=200)
+
 
 def fulfill_order(session):
     order_id = int(session['metadata']['order_id'])

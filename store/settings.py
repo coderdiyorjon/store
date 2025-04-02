@@ -15,30 +15,30 @@ from pathlib import Path
 import environ
 
 env = environ.Env(
-    DEBUG=(bool),
-    SECRET_KEY=(str),
-    DOMAIN_NAME=(str),
+    DEBUG=bool,
+    SECRET_KEY=str,
+    DOMAIN_NAME=str,
 
-    REDIS_HOST=(str),
-    REDIS_PORT=(int),
+    REDIS_HOST=str,
+    REDIS_PORT=int,
 
-    DATABASE_NAME=(str),
-    DATABASE_USER=(str),
-    DATABASE_PASSWORD=(str),
-    DATABASE_HOST=(str),
-    DATABASE_PORT=(int),
+    DATABASE_NAME=str,
+    DATABASE_USER=str,
+    DATABASE_PASSWORD=str,
+    DATABASE_HOST=str,
+    DATABASE_PORT=int,
 
-    EMAIL_BACKEND=(str),
-    EMAIL_HOST=(str),
-    EMAIL_PORT=(int),
-    EMAIL_HOST_USER=(str),
-    EMAIL_HOST_PASSWORD=(str),
-    EMAIL_USE_TLS=(bool),
-    EMAIL_USE_SSL=(bool),
+    EMAIL_BACKEND=str,
+    EMAIL_HOST=str,
+    EMAIL_PORT=int,
+    EMAIL_HOST_USER=str,
+    EMAIL_HOST_PASSWORD=str,
+    EMAIL_USE_TLS=bool,
+    EMAIL_USE_SSL=bool,
 
-    STRIPE_PRODUCT_KEY=(str),
-    STRIPE_SECRET_KEY=(str),
-    STRIPE_WEBHOOK_SECRET=(str),
+    STRIPE_PRODUCT_KEY=str,
+    STRIPE_SECRET_KEY=str,
+    STRIPE_WEBHOOK_SECRET=str,
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -123,7 +123,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
-        'OPTIONS': {  # "OPTION" emas, "OPTIONS" bo'lishi kerak
+        'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
     }

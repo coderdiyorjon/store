@@ -12,21 +12,52 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # from django.contrib.gis.gdal.geomtype.OGRGeomType import django
 from pathlib import Path
 
+import environ
+
+env = environ.Env(
+    DEBUG=(bool),
+    SECRET_KEY=(str),
+    DOMAIN_NAME=(str),
+
+    REDIS_HOST=(str),
+    REDIS_PORT=(int),
+
+    DATABASE_NAME=(str),
+    DATABASE_USER=(str),
+    DATABASE_PASSWORD=(str),
+    DATABASE_HOST=(str),
+    DATABASE_PORT=(int),
+
+    EMAIL_BACKEND=(str),
+    EMAIL_HOST=(str),
+    EMAIL_PORT=(int),
+    EMAIL_HOST_USER=(str),
+    EMAIL_HOST_PASSWORD=(str),
+    EMAIL_USE_TLS=(bool),
+    EMAIL_USE_SSL=(bool),
+
+    STRIPE_PRODUCT_KEY=(str),
+    STRIPE_SECRET_KEY=(str),
+    STRIPE_WEBHOOK_SECRET=(str),
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+environ.Env.read_env(BASE_DIR / '.env')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y8ikcx9hfa(9lpuvs^6)kiv9znb=!@uw7)dl68-dh*hhtkm9dd'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://127.0.0.1:8000'
+DOMAIN_NAME = env('DOMAIN_NAME')
 
 # Application definition
 
@@ -85,10 +116,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'store.wsgi.application'
 
+REDIS_HOST = env('REDIS_HOST')
+REDIS_PORT = env('REDIS_PORT')
+
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
         'OPTIONS': {  # "OPTION" emas, "OPTIONS" bo'lishi kerak
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
@@ -111,10 +145,10 @@ INTERNAL_IPS = ['127.0.0.1', 'localhost']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'store_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
         'PORT': '5432',
     }
 }
@@ -169,16 +203,16 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Email
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'raxmonqulovdiyorjon0624@gmail.com'
-EMAIL_HOST_PASSWORD = 'yrzvullmzijjjrua'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = env('EMAIL_BACKEND')
+    EMAIL_HOST = env('EMAIL_HOST')
+    EMAIL_PORT = env('EMAIL_PORT')
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_TLS = env('EMAIL_USE_TLS')
+    EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 
 # OAuth
 
@@ -191,12 +225,12 @@ SOCIALACCOUNT_PROVIDERS = {'github': {'SCOPE': ['user', ], }}
 
 # Celery
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 # Stripe
 # > Done! The Stripe CLI is configured for Default sandbox with account id acct_1R1PBnFKzT3pYxfL
 
-STRIPE_PUBLIC_KEY = 'pk_test_51R1PBnFKzT3pYxfLpDu8tETfPsJw2MsI7apUao9GPl91FQYhiRtA3IwrYU5HVLE2Yc0w3fRHWElAjk9Kt44d0b2H00CpkJ0rQ9'
-STRIPE_SECRET_KEY = 'sk_test_51R1PBnFKzT3pYxfLjZ44BNrddzvYLCnynkHDQTVb5Z5VDMg2SOguvl2Oe3vmo88oK9k6PMXJG0N1E7P7gbEJABQz00hCByKPRn'
-STRIPE_WEBHOOK_SECRET = 'whsec_ddd09c086b007131675e1b7d87f5d162330d3d1715d2c6869e39e50b31680f08'
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
